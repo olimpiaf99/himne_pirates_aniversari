@@ -526,3 +526,9 @@ body.dark .logo,
 body.dark .header-logo{
     filter: brightness(0) invert(1);
 }
+
+#themeToggle{
+    font-size: 30px;
+    background-color: transparent;
+    border: 0px
+}
