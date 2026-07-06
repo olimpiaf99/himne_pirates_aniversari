@@ -458,10 +458,12 @@ header{
 #backButton{
     position: absolute;
     left: 16px;
+    top: 16px;
     background: none;
     border: none;
     font-size: 1.4rem;
     cursor: pointer;
+    color:inherit
 }
 
 .stanza{
@@ -528,7 +530,12 @@ body.dark .header-logo{
 }
 
 #themeToggle{
+    position: absolute;
+    right: 16px;
+    top: 16px;
     font-size: 30px;
     background-color: transparent;
     border: 0px;
+    cursor: pointer;
+    color: inherit;
 }
