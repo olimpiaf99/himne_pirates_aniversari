@@ -200,20 +200,9 @@ main{
 
 
 #lyrics{
-
     width:min(720px,100%);
-
-    line-height:2;
-
     font-size:1.15rem;
-
-}
-
-
-.stanza{
-
-    margin-bottom:35px;
-
+    text-align: center;
 }
 
 
@@ -476,7 +465,6 @@ header{
 }
 
 .stanza{
-    white-space: pre-line;
-    margin-bottom: 35px;
-    line-height: 1.5;
+    margin-bottom: 42px;
+    line-height: 1.3;
 }

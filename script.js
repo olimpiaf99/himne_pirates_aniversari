@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const div = document.createElement("div");
             div.className = "stanza";
 
-            div.innerHTML = parseAnnotations(stanza);
+            div.innerHTML = parseAnnotations(stanza.replace(/\n/g, "<br>"));
 
             lyricsContainer.appendChild(div);
 
