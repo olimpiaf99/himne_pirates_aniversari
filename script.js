@@ -9,6 +9,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const lyricsContainer = document.getElementById("lyrics");
 
+    const savedLang = localStorage.getItem("lang");
+    const savedScreen = localStorage.getItem("screen");
+
+    // luego restaurar pantalla
+    if (savedScreen === "song") {
+
+        home.classList.remove("active");
+        song.classList.add("active");
+
+        // IMPORTANTE: render después del cambio de pantalla
+        setTimeout(() => {
+            renderLyrics();
+        }, 0);
+    }
+
     const overlay = document.getElementById("overlay");
     const bottomSheet = document.getElementById("bottomSheet");
 
@@ -18,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const closeSheet = document.getElementById("closeSheet");
     const backButton = document.getElementById("backButton");
 
-    let currentLanguage = "val";
+    let currentLanguage = savedLang || "val";
 
 
     // =========================
@@ -34,6 +49,9 @@ document.addEventListener("DOMContentLoaded", () => {
             home.classList.remove("active");
             song.classList.add("active");
 
+            localStorage.setItem("lang", currentLanguage);
+            localStorage.setItem("screen", "song");
+
             renderLyrics();
 
         });
@@ -47,6 +65,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (backButton) {
         backButton.addEventListener("click", () => {
+
+            localStorage.setItem("screen", "home");
 
             song.classList.remove("active");
             home.classList.add("active");
@@ -74,7 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const div = document.createElement("div");
             div.className = "stanza";
 
-            div.innerHTML = parseAnnotations(stanza.replace(/\n/g, "<br>"));
+            div.innerHTML = parseAnnotations(stanza);
 
             lyricsContainer.appendChild(div);
 
