@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>En Roig i Negre</title>
+
+    <link rel="stylesheet" href="styles.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- ===========================
+     PANTALLA DE INICIO
+============================ -->
+
+<section id="home" class="screen active">
+
+    <img src="assets/logo_pirates_2.png" class="logo" alt="Pirates">
+
+    <h1>En Roig i Negre</h1>
+
+    <div class="language-buttons">
+
+        <button class="language-btn" data-lang="val">
+            🇻🇦 Valencià
+        </button>
+
+        <button class="language-btn" data-lang="es">
+            🇪🇸 Español
+        </button>
+
+        <button class="language-btn" data-lang="en">
+            🇬🇧 English
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- ===========================
+     PANTALLA DE LA CANCIÓN
+============================ -->
+
+<section id="song" class="screen">
+
+<header>
+
+    <button id="backButton">
+        ← Idioma
+    </button>
+
+    <div class="header-title">
+
+        <img src="assets/logo_pirates_2.png" class="header-logo">
+
+        <span>En Roig i Negre</span>
+
+    </div>
+
+</header>
+
+<main>
+
+    <div id="lyrics">
+
+        <!-- Aquí se cargará la letra automáticamente -->
+
+    </div>
+
+</main>
+
+</section>
+
+
+
+<!-- ===========================
+     FONDO OSCURO
+============================ -->
+
+<div id="overlay"></div>
+
+
+<!-- ===========================
+     PANEL DE ANOTACIÓN
+============================ -->
+
+<div id="bottomSheet">
+
+    <div class="sheet-handle"></div>
+
+    <button id="closeSheet">
+        ✕
+    </button>
+
+    <h2 id="sheetTitle"></h2>
+
+    <div id="sheetContent"></div>
+
+</div>
+
+
+<script src="data.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>
