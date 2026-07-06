@@ -7,26 +7,36 @@
 
     <link rel="stylesheet" href="styles.css">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
-
 <body>
 
 <!-- ===========================
-     HOME
-=========================== -->
+     PANTALLA DE INICIO
+============================ -->
 
 <section id="home" class="screen active">
 
-    <img src="assets/logo_pirates_1.png" class="logo" alt="logo">
+    <img src="assets/logo_pirates_1.png" class="logo" alt="Pirates">
 
     <h1>En Roig i Negre</h1>
 
     <div class="language-buttons">
 
-        <button class="language-btn" data-lang="val">Valencià</button>
-        <button class="language-btn" data-lang="es">Español</button>
-        <button class="language-btn" data-lang="en">English</button>
+        <button class="language-btn" data-lang="val">
+            Valencià
+        </button>
+
+        <button class="language-btn" data-lang="es">
+            Español
+        </button>
+
+        <button class="language-btn" data-lang="en">
+            English
+        </button>
 
     </div>
 
@@ -34,40 +44,62 @@
 
 
 <!-- ===========================
-     SONG
-=========================== -->
+     PANTALLA DE LA CANCIÓN
+============================ -->
 
 <section id="song" class="screen">
 
-    <header class="song-header">
+<header>
 
-        <button id="backButton" class="back-btn">←</button>
+    <button id="backButton">
+        ← Idioma
+    </button>
 
-    </header>
+    <div class="header-title">
 
-    <div class="song-logo">
-        <img src="assets/logo_pirates_1.png" alt="logo">
-        <h1>En Roig i Negre</h1>
+        <img src="assets/logo_pirates_1.png" class="header-logo">
+
+        <span>En Roig i Negre</span>
+
     </div>
 
-    <main>
-        <div id="lyrics"></div>
-    </main>
+</header>
+
+<main>
+
+    <div id="lyrics">
+
+        <!-- Aquí se cargará la letra automáticamente -->
+
+    </div>
+
+</main>
 
 </section>
 
 
-<!-- OVERLAY -->
+
+<!-- ===========================
+     FONDO OSCURO
+============================ -->
+
 <div id="overlay"></div>
 
-<!-- BOTTOM SHEET -->
+
+<!-- ===========================
+     PANEL DE ANOTACIÓN
+============================ -->
+
 <div id="bottomSheet">
 
     <div class="sheet-handle"></div>
 
-    <button id="closeSheet">✕</button>
+    <button id="closeSheet">
+        ✕
+    </button>
 
     <h2 id="sheetTitle"></h2>
+
     <div id="sheetContent"></div>
 
 </div>
