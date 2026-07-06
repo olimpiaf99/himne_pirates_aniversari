@@ -111,11 +111,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         return text.replace(/\[\[(.*?)\]\]/g, function (match, key) {
 
-            return `
-                <span class="annotation" data-note="${key}">
-                    ${key}
-                </span>
-            `;
+            return `<span class="annotation" data-note="${key}">${key}</span>`;
 
         });
 
