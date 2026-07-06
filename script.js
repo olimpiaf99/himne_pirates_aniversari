@@ -1,159 +1,166 @@
-// =========================
-// ELEMENTOS
-// =========================
+document.addEventListener("DOMContentLoaded", () => {
 
-const home = document.getElementById("home");
-const song = document.getElementById("song");
+    // =========================
+    // ELEMENTOS
+    // =========================
 
-const lyricsContainer = document.getElementById("lyrics");
+    const home = document.getElementById("home");
+    const song = document.getElementById("song");
 
-const overlay = document.getElementById("overlay");
+    const lyricsContainer = document.getElementById("lyrics");
 
-const bottomSheet = document.getElementById("bottomSheet");
+    const overlay = document.getElementById("overlay");
+    const bottomSheet = document.getElementById("bottomSheet");
 
-const sheetTitle = document.getElementById("sheetTitle");
-const sheetContent = document.getElementById("sheetContent");
+    const sheetTitle = document.getElementById("sheetTitle");
+    const sheetContent = document.getElementById("sheetContent");
 
-const closeSheet = document.getElementById("closeSheet");
-const backButton = document.getElementById("backButton");
+    const closeSheet = document.getElementById("closeSheet");
+    const backButton = document.getElementById("backButton");
 
-let currentLanguage = "val";
-
-
-// =========================
-// CAMBIO DE IDIOMA
-// =========================
-
-document.querySelectorAll(".language-btn").forEach(button => {
-
-    button.addEventListener("click", () => {
-
-        currentLanguage = button.dataset.lang;
-
-        home.classList.remove("active");
-        song.classList.add("active");
-
-        renderLyrics();
-
-    });
-
-});
+    let currentLanguage = "val";
 
 
-// =========================
-// VOLVER AL INICIO
-// =========================
+    // =========================
+    // CAMBIO DE IDIOMA
+    // =========================
 
-backButton.addEventListener("click", () => {
+    document.querySelectorAll(".language-btn").forEach(button => {
 
-    song.classList.remove("active");
-    home.classList.add("active");
+        button.addEventListener("click", () => {
 
-});
+            currentLanguage = button.dataset.lang;
 
+            home.classList.remove("active");
+            song.classList.add("active");
 
-// =========================
-// RENDERIZAR LETRA
-// =========================
+            renderLyrics();
 
-function renderLyrics(){
-
-    lyricsContainer.innerHTML = "";
-
-    const songData = DATA[currentLanguage];
-
-    songData.lyrics.forEach(stanza=>{
-
-        const div = document.createElement("div");
-
-        div.className = "stanza";
-
-        div.innerHTML = parseAnnotations(stanza);
-
-        lyricsContainer.appendChild(div);
+        });
 
     });
 
-}
+
+    // =========================
+    // VOLVER AL INICIO
+    // =========================
+
+    if (backButton) {
+        backButton.addEventListener("click", () => {
+
+            song.classList.remove("active");
+            home.classList.add("active");
+
+        });
+    }
 
 
-// =========================
-// DETECTAR [[ANOTACIONES]]
-// =========================
+    // =========================
+    // RENDERIZAR LETRA
+    // =========================
 
-function parseAnnotations(text){
+    function renderLyrics() {
 
-    return text.replace(/\[\[(.*?)\]\]/g,function(match,key){
+        if (!lyricsContainer || !DATA) return;
 
-        return `
-            <span class="annotation" data-note="${key}">
-                ${key}
-            </span>
-        `;
+        lyricsContainer.innerHTML = "";
+
+        const songData = DATA[currentLanguage];
+
+        if (!songData) return;
+
+        songData.lyrics.forEach(stanza => {
+
+            const div = document.createElement("div");
+            div.className = "stanza";
+
+            div.innerHTML = parseAnnotations(stanza);
+
+            lyricsContainer.appendChild(div);
+
+        });
+
+    }
+
+
+    // =========================
+    // DETECTAR [[ANOTACIONES]]
+    // =========================
+
+    function parseAnnotations(text) {
+
+        return text.replace(/\[\[(.*?)\]\]/g, function (match, key) {
+
+            return `
+                <span class="annotation" data-note="${key}">
+                    ${key}
+                </span>
+            `;
+
+        });
+
+    }
+
+
+    // =========================
+    // CLICK EN ANOTACIÓN
+    // =========================
+
+    document.addEventListener("click", function (e) {
+
+        if (!e.target.classList.contains("annotation")) return;
+
+        const note = e.target.dataset.note;
+
+        const info = DATA?.[currentLanguage]?.notes?.[note];
+
+        if (!info) return;
+
+        sheetTitle.textContent = info.title;
+        sheetContent.innerHTML = info.text;
+
+        overlay.classList.add("show");
+        bottomSheet.classList.add("show");
 
     });
 
-}
+
+    // =========================
+    // CERRAR PANEL
+    // =========================
+
+    function closeBottomSheet() {
+
+        overlay.classList.remove("show");
+        bottomSheet.classList.remove("show");
+
+    }
+
+    if (closeSheet) closeSheet.addEventListener("click", closeBottomSheet);
+    if (overlay) overlay.addEventListener("click", closeBottomSheet);
 
 
-// =========================
-// CLICK EN ANOTACIÓN
-// =========================
+    // =========================
+    // DESLIZAR PARA CERRAR
+    // =========================
 
-document.addEventListener("click",function(e){
+    let startY = 0;
 
-    if(!e.target.classList.contains("annotation")) return;
+    if (bottomSheet) {
 
-    const note = e.target.dataset.note;
+        bottomSheet.addEventListener("touchstart", (e) => {
+            startY = e.touches[0].clientY;
+        });
 
-    const info = DATA[currentLanguage].notes[note];
+        bottomSheet.addEventListener("touchmove", (e) => {
 
-    if(!info) return;
+            let currentY = e.touches[0].clientY;
 
-    sheetTitle.textContent = info.title;
-    sheetContent.innerHTML = info.text;
+            if (currentY - startY > 100) {
+                closeBottomSheet();
+            }
 
-    overlay.classList.add("show");
-    bottomSheet.classList.add("show");
-
-});
-
-
-// =========================
-// CERRAR PANEL
-// =========================
-
-function closeBottomSheet(){
-
-    overlay.classList.remove("show");
-    bottomSheet.classList.remove("show");
-
-}
-
-closeSheet.addEventListener("click",closeBottomSheet);
-
-overlay.addEventListener("click",closeBottomSheet);
-
-
-// =========================
-// DESLIZAR PARA CERRAR
-// =========================
-
-let startY = 0;
-
-bottomSheet.addEventListener("touchstart",(e)=>{
-
-    startY = e.touches[0].clientY;
-
-});
-
-bottomSheet.addEventListener("touchmove",(e)=>{
-
-    let currentY = e.touches[0].clientY;
-
-    if(currentY-startY>100){
-
-        closeBottomSheet();
+        });
 
     }
 
