@@ -1,12 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    // =========================
-    // ELEMENTOS
-    // =========================
-
     const home = document.getElementById("home");
     const song = document.getElementById("song");
-
     const lyricsContainer = document.getElementById("lyrics");
 
     const overlay = document.getElementById("overlay");
@@ -21,53 +16,33 @@ document.addEventListener("DOMContentLoaded", () => {
     let currentLanguage = "val";
 
 
-    // =========================
-    // CAMBIO DE IDIOMA
-    // =========================
+    // LANGUAGE CHANGE
+    document.querySelectorAll(".language-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
 
-    document.querySelectorAll(".language-btn").forEach(button => {
-
-        button.addEventListener("click", () => {
-
-            currentLanguage = button.dataset.lang;
+            currentLanguage = btn.dataset.lang;
 
             home.classList.remove("active");
             song.classList.add("active");
 
             renderLyrics();
-
         });
-
     });
 
 
-    // =========================
-    // VOLVER AL INICIO
-    // =========================
-
-    if (backButton) {
-        backButton.addEventListener("click", () => {
-
-            song.classList.remove("active");
-            home.classList.add("active");
-
-        });
-    }
+    // BACK BUTTON
+    backButton.addEventListener("click", () => {
+        song.classList.remove("active");
+        home.classList.add("active");
+    });
 
 
-    // =========================
-    // RENDERIZAR LETRA
-    // =========================
-
+    // RENDER LYRICS
     function renderLyrics() {
-
-        if (!lyricsContainer || !DATA) return;
 
         lyricsContainer.innerHTML = "";
 
         const songData = DATA[currentLanguage];
-
-        if (!songData) return;
 
         songData.lyrics.forEach(stanza => {
 
@@ -77,42 +52,25 @@ document.addEventListener("DOMContentLoaded", () => {
             div.innerHTML = parseAnnotations(stanza);
 
             lyricsContainer.appendChild(div);
-
         });
-
     }
 
 
-    // =========================
-    // DETECTAR [[ANOTACIONES]]
-    // =========================
-
+    // ANNOTATIONS
     function parseAnnotations(text) {
-
-        return text.replace(/\[\[(.*?)\]\]/g, function (match, key) {
-
-            return `
-                <span class="annotation" data-note="${key}">
-                    ${key}
-                </span>
-            `;
-
+        return text.replace(/\[\[(.*?)\]\]/g, (_, key) => {
+            return `<span class="annotation" data-note="${key}">${key}</span>`;
         });
-
     }
 
 
-    // =========================
-    // CLICK EN ANOTACIÓN
-    // =========================
-
-    document.addEventListener("click", function (e) {
+    // CLICK ANNOTATION
+    document.addEventListener("click", (e) => {
 
         if (!e.target.classList.contains("annotation")) return;
 
         const note = e.target.dataset.note;
-
-        const info = DATA?.[currentLanguage]?.notes?.[note];
+        const info = DATA[currentLanguage].notes[note];
 
         if (!info) return;
 
@@ -121,47 +79,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
         overlay.classList.add("show");
         bottomSheet.classList.add("show");
-
     });
 
 
-    // =========================
-    // CERRAR PANEL
-    // =========================
-
-    function closeBottomSheet() {
-
+    // CLOSE SHEET
+    function closeSheetFn() {
         overlay.classList.remove("show");
         bottomSheet.classList.remove("show");
-
     }
 
-    if (closeSheet) closeSheet.addEventListener("click", closeBottomSheet);
-    if (overlay) overlay.addEventListener("click", closeBottomSheet);
-
-
-    // =========================
-    // DESLIZAR PARA CERRAR
-    // =========================
-
-    let startY = 0;
-
-    if (bottomSheet) {
-
-        bottomSheet.addEventListener("touchstart", (e) => {
-            startY = e.touches[0].clientY;
-        });
-
-        bottomSheet.addEventListener("touchmove", (e) => {
-
-            let currentY = e.touches[0].clientY;
-
-            if (currentY - startY > 100) {
-                closeBottomSheet();
-            }
-
-        });
-
-    }
+    closeSheet.addEventListener("click", closeSheetFn);
+    overlay.addEventListener("click", closeSheetFn);
 
 });
