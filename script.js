@@ -101,6 +101,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
+    function renderMarkdown(text){
+
+        return text
+            .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
+            .replace(/\*(.*?)\*/g, "<em>$1</em>")
+            .replace(/\n/g, "<br>")
+            .replace(/- (.*?)(?=\n|$)/g, "• $1<br>");
+    }
+
 
     // =========================
     // CLICK EN ANOTACIÓN
@@ -117,7 +126,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!info) return;
 
         sheetTitle.textContent = info.title;
-        sheetContent.innerHTML = info.text;
+        sheetContent.innerHTML = renderMarkdown(info.text);
 
         overlay.classList.add("show");
         bottomSheet.classList.add("show");
