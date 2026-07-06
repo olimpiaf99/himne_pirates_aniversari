@@ -474,3 +474,9 @@ header{
     font-size: 1.4rem;
     cursor: pointer;
 }
+
+.stanza{
+    white-space: pre-line;
+    margin-bottom: 35px;
+    line-height: 2;
+}
