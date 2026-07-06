@@ -12,18 +12,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const savedLang = localStorage.getItem("lang");
     const savedScreen = localStorage.getItem("screen");
 
-    // luego restaurar pantalla
-    if (savedScreen === "song") {
-
-        home.classList.remove("active");
-        song.classList.add("active");
-
-        // IMPORTANTE: render después del cambio de pantalla
-        setTimeout(() => {
-            renderLyrics();
-        }, 0);
-    }
-
     const overlay = document.getElementById("overlay");
     const bottomSheet = document.getElementById("bottomSheet");
 
@@ -33,7 +21,40 @@ document.addEventListener("DOMContentLoaded", () => {
     const closeSheet = document.getElementById("closeSheet");
     const backButton = document.getElementById("backButton");
 
+    const themeToggle = document.getElementById("themeToggle");
+
     let currentLanguage = savedLang || "val";
+
+
+    // =========================
+    // 🔥 DARK MODE INIT
+    // =========================
+
+    const savedTheme = localStorage.getItem("theme");
+
+    if (savedTheme === "dark") {
+        document.body.classList.add("dark");
+    }
+
+    if (themeToggle) {
+        themeToggle.textContent =
+            document.body.classList.contains("dark") ? "☀️" : "🌙";
+    }
+
+
+    // =========================
+    // RESTAURAR PANTALLA
+    // =========================
+
+    if (savedScreen === "song") {
+
+        home.classList.remove("active");
+        song.classList.add("active");
+
+        setTimeout(() => {
+            renderLyrics();
+        }, 0);
+    }
 
 
     // =========================
@@ -74,6 +95,25 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    // =========================
+    // 🔥 TOGGLE DARK MODE
+    // =========================
+
+    if (themeToggle) {
+
+        themeToggle.addEventListener("click", () => {
+
+            document.body.classList.toggle("dark");
+
+            const isDark = document.body.classList.contains("dark");
+
+            localStorage.setItem("theme", isDark ? "dark" : "light");
+
+            themeToggle.textContent = isDark ? "☀️" : "🌙";
+
+        });
+
+    }
 
     // =========================
     // RENDERIZAR LETRA

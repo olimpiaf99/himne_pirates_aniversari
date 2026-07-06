@@ -468,3 +468,61 @@ header{
     margin-bottom: 42px;
     line-height: 1.3;
 }
+
+/* =========================
+   DARK MODE
+========================= */
+
+body.dark{
+    background:#121212;
+    color:#f2f2f2;
+}
+
+/* home */
+body.dark #home{
+    background:#121212;
+}
+
+/* botones idioma */
+body.dark .language-btn{
+    background:#1e1e1e;
+    border:1px solid #333;
+    color:#f2f2f2;
+}
+
+body.dark .language-btn:hover{
+    background:#ffffff;
+    color:#000;
+}
+
+/* header */
+body.dark header{
+    background:#1a1a1a;
+    border-bottom:1px solid #2a2a2a;
+}
+
+/* lyrics */
+body.dark #lyrics{
+    color:#f2f2f2;
+}
+
+/* bottom sheet */
+body.dark #bottomSheet{
+    background:#1a1a1a;
+    color:#f2f2f2;
+}
+
+/* overlay */
+body.dark #overlay{
+    background:rgba(0,0,0,.6);
+}
+
+/* back button */
+body.dark #backButton{
+    color:#f2f2f2;
+}
+
+body.dark .logo,
+body.dark .header-logo{
+    filter: brightness(0) invert(1);
+}
